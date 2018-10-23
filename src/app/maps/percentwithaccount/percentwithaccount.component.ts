@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpEventType, HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-percentwithaccount',
   templateUrl: './percentwithaccount.component.html',
@@ -13,15 +14,24 @@ export class PercentwithaccountComponent implements OnInit {
         position: 'bottom'
     }
 };
-  constructor() { }
+constructor(public http: HttpClient) { }
 
   ngOnInit() {
+    this.loadMapData();
   }
   public line_ChartData = [
-    ['Year', 'Sales', 'Expenses'],
+    ['Vertical', 'P66', 'P80'],
     ['2004', 1000, 400],
     ['2005', 1170, 460],
     ['2006', 660, 1120],
     ['2007', 1030, 540]];
+
+    loadMapData(){
+      this.http.get(environment.api+'/template/getBenchData?userId='+localStorage.getItem('userID'))
+      .subscribe((res)=>{
+        console.log(res);
+        
+      });
+    }
 
 }

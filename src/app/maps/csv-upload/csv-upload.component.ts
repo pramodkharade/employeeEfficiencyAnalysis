@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpEventType, HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { HttpEventType, HttpClient, HttpHeaders } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-csv-upload',
@@ -8,28 +10,36 @@ import { HttpEventType, HttpClient } from '@angular/common/http';
 })
 export class CsvUploadComponent implements OnInit {
   selectedFile: File = null;
-  constructor(public http:HttpClient) { }
+  uploadStatus: any;
+  constructor(public http: HttpClient) { }
 
   ngOnInit() {
   }
-  fileSelected(event){
+  fileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
-    console.log("upload data is: ",this.selectedFile);
+    console.log("upload data is: ", this.selectedFile);
   }
-  onUpload(){
+  onUpload() {
     const fd = new FormData();
-    fd.append('image',this.selectedFile,this.selectedFile.name);
-    console.log("upload data is: ",fd);
-    // this.http.post('https://us-central1-fb-cloud-functions-demo.cloudfunctions.net/uploadFile',fd,({
-    //   reportProgress:true,
-    //   observe:'events'
-    // }))
-    // .subscribe(event=>{ 
-    //     if(event.type=== HttpEventType.UploadProgress){
-    //       console.log(Math.round(event.loaded / event.total * 100) + '%');
-    //     } else if (event.type === HttpEventType.Response){
-    //         console.log(event);
-    //     }
-    // });
+    let headers = new HttpHeaders();
+    fd.append('excelTemplate', this.selectedFile, this.selectedFile.name);
+    headers.append('Content-Type', 'multipart/form-data');
+    this.http.post(environment.api + '/template/fileUpload?userId=' + localStorage.getItem('userID'), fd, ({
+      reportProgress: true,
+      observe: 'events',
+      headers
+    }))
+      .subscribe(event => {
+        console.log('Obj:',event);
+        if (event.type === HttpEventType.UploadProgress) {
+          //console.log('Obj:', HttpEventType);
+          //this.uploadStatus = Math.round(event.loaded / event.total * 100);
+          //console.log(Math.round(event.loaded / event.total * 100) + '%');
+        } else if (event.type === HttpEventType.Response) {
+            if(HttpEventType.Response==4){
+              this.uploadStatus ='CSV Uploaded Successfully!';
+            }
+        }
+      });
   }
 }

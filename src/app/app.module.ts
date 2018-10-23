@@ -16,6 +16,7 @@ import { CsvUploadComponent } from './maps/csv-upload/csv-upload.component';
 import { PercentwithaccountComponent } from './maps/percentwithaccount/percentwithaccount.component';
 import { HeaderComponent } from './header/header.component';
 import { GuardService } from './authentic/guard.service';
+import { CsvuploadService } from './authentic/csvupload.service';
 
 
 
@@ -38,7 +39,7 @@ import { GuardService } from './authentic/guard.service';
     RouterModule.forRoot(appRoutes),
     Ng4LoadingSpinnerModule.forRoot()
   ],
-  providers: [AuthService,GuardService],
+  providers: [AuthService,GuardService,CsvuploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -26,7 +26,9 @@ errorMsg ='';
       (res)=>{
         this.spinnerService.hide();
         if(res.responseCode== 200 && res.responseMessage==='success'){
+          console.log("User Data: ",res.signInData.userId);
           localStorage.setItem("Elogin","logged");
+          localStorage.setItem('userID',res.signInData.userId);
           this.redirectOn();
         }
         else if((res.responseCode===200) && (res.responseMessage!=='success')){
