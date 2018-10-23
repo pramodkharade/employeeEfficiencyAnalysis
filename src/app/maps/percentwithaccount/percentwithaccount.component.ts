@@ -21,10 +21,10 @@ constructor(public http: HttpClient) { }
   }
   public line_ChartData = [
     ['Vertical', 'P66', 'P80'],
-    ['2004', 1000, 400],
-    ['2005', 1170, 460],
-    ['2006', 660, 1120],
-    ['2007', 1030, 540]];
+    ['1', 39.5, 42.5],
+    ['2', 41.6, 50.5],
+    ['3', 43.00, 60],
+    ['4', 84, 51]];
 
     loadMapData(){
       this.http.get(environment.api+'/template/getBenchData?userId='+localStorage.getItem('userID'))
