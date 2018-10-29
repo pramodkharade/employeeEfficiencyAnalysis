@@ -14,6 +14,8 @@ import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { appRoutes } from './app.routes';
 import { CsvUploadComponent } from './maps/csv-upload/csv-upload.component';
 import { PercentwithaccountComponent } from './maps/percentwithaccount/percentwithaccount.component';
+import { PercentBillableComponent } from './maps/percentBillable/percentBillable.component';
+import { PercentLeavesComponent } from './maps/percentLeaves/percentLeaves.component';
 import { HeaderComponent } from './header/header.component';
 import { GuardService } from './authentic/guard.service';
 import { CsvuploadService } from './authentic/csvupload.service';
@@ -28,6 +30,8 @@ import { CsvuploadService } from './authentic/csvupload.service';
     SidebarComponent,
     CsvUploadComponent,
     PercentwithaccountComponent,
+    PercentLeavesComponent,
+    PercentBillableComponent,
     GoogleChart,
     HeaderComponent,
   ],
